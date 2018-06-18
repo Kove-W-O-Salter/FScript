@@ -29,8 +29,9 @@ main :: IO ()
 main  = do putStr "Fs> "
            l <- getLine
            case l of
-             "@L" -> prompt "Load File> " >>= readFile >>= \c -> putStrLn (run c) >> main
-             "@Q" -> return ()
+             ":Load"  -> prompt "Load File> " >>= readFile >>= \c -> putStrLn (run c) >> main
+             ":Quit"  -> return ()
+             ":Clear" -> clear 2 >> main
              _    -> putStrLn (run l) >> main
 
 --
@@ -46,6 +47,15 @@ prompt s  = do putStr s
                  prompt s
                else
                  return l
+
+--
+-- @Description   : Clear the display.
+-- @Creation Date : 18'th June 2018.
+--
+
+clear   :: Int -> IO ()
+clear n  = do putStr "\ESC[0;0H"
+              putStr $ "\ESC[" ++ show n ++ "J"
 
 --
 -- @Description   : Run the source source and return it's result as a String.
