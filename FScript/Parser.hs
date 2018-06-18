@@ -171,11 +171,10 @@ readOp '?'  = Cnd
 --
 
 declaration :: Parser Expr
-declaration  = do char '['
+declaration  = do char '@'
                   i <- identifier
                   many1 space
                   as <- sepBy identifier (char '`')
-                  char ']'
                   spaces
                   string "=>"
                   spaces
