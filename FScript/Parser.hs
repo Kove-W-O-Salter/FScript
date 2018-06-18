@@ -47,6 +47,13 @@ type Parser a = ParsecT String () Identity a
 -- @Description   : Parse an expression.
 -- @Creation Date : 18'th June 2018.
 --
+fScript        :: String -> Either ParseError Expr
+fScript         = parse expression "FScript"
+
+--
+-- @Description   : Parse an expression.
+-- @Creation Date : 18'th June 2018.
+--
 expression :: Parser Expr
 expression  = (try constant) <|> (try application) <|> (try declaration) <|> parenthesis
 
