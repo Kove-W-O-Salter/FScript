@@ -146,7 +146,7 @@ opApplication  = do char '['
 --
 
 operator :: Parser Oper
-operator  = do o <- oneOf "+-*/"
+operator  = do o <- oneOf "+-*/=<>!"
                return $ readOp o
 
 --
@@ -159,6 +159,10 @@ readOp '+'  = Add
 readOp '-'  = Sub
 readOp '*'  = Mul
 readOp '/'  = Div
+readOp '='  = Equ
+readOp '>'  = Gtr
+readOp '<'  = Ltn
+readOp '!'  = Not
 
 --
 -- @Description   : Match the declaration of an identifier.

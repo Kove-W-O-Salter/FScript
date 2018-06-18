@@ -52,4 +52,8 @@ data Oper = Add
           | Sub
           | Mul
           | Div
+          | Equ
+          | Gtr
+          | Ltn
+          | Not
           deriving (Show,Read)

@@ -67,6 +67,14 @@ applyOper' Mul _     = Failure $ "Mul, has been applied too an invalid number of
 applyOper' Div [_,0] = Failure $ "Div, has been applied too a divsor of zero."
 applyOper' Div [x,y] = return $ div x y
 applyOper' Div _     = Failure $ "Div, has been applied too an invalid number of arguments."
+applyOper' Equ [x,y] = return $ if x == y then 1 else 0
+applyOper' Equ _     = Failure $ "Equ, has been applied too an invalid number of arguments."
+applyOper' Gtr [x,y] = return $ if x >  y then 1 else 0
+applyOper' Gtr _     = Failure $ "Gtr, has been applied too an invalid number of arguments."
+applyOper' Ltn [x,y] = return $ if x <  y then 1 else 0
+applyOper' Ltn _     = Failure $ "Ltn, has been applied too an invalid number of arguments."
+applyOper' Not [x]   = return $ if x >  0 then 0 else 1
+applyOper' Not _     = Failure $ "Not, has been applied too an invalid number of arguments."
 
 --
 -- @Description   : Apply an identifier to a list of - reduced - expressions.
