@@ -27,7 +27,13 @@ import FScript.Execution
 
 main :: IO ()
 main  = do l <- getLine
-           putStrLn (run l)
+           if l==":Load" then do
+             putStrLn "Enter file to interpret: "
+             f <- getLine
+             s <- readFile f
+             putStrLn (run s)
+           else
+             putStrLn (run l)
            main
 
 --

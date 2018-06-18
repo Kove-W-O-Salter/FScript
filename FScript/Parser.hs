@@ -73,7 +73,7 @@ constant  = do i <- integer
 
 integer :: Parser Int
 integer  = do is <- digits
-              notFollowedBy letter
+--              notFollowedBy letter
               return $ read is
 
 --
@@ -100,9 +100,9 @@ application  = (try idApplication) <|> opApplication
 
 idApplication :: Parser Expr
 idApplication  = do i <- identifier
-                    space
+                    many space
                     as <- arguments
-                    notFollowedBy (letter <|> digit)
+--                    notFollowedBy (letter <|> digit)
                     return $ Cal i as
 
 --
@@ -121,8 +121,8 @@ identifier  = do l <- letter
 --
 
 arguments :: Parser [Expr]
-arguments  = do as <- sepBy expression (char ' ')
-                notFollowedBy (letter <|> digit)
+arguments  = do as <- sepBy expression (string "`")
+--                notFollowedBy (letter <|> digit)
                 return as
 
 --
@@ -135,9 +135,9 @@ opApplication :: Parser Expr
 opApplication  = do char '['
                     o <- operator
                     char ']'
-                    space
+                    spaces
                     as <- arguments
-                    notFollowedBy (letter <|> digit)
+--                    notFollowedBy (letter <|> digit)
                     return $ App o as
 
 --
@@ -168,16 +168,16 @@ readOp '/'  = Div
 declaration :: Parser Expr
 declaration  = do char '['
                   i <- identifier
-                  space
-                  as <- sepBy identifier space
+                  many1 space
+                  as <- sepBy identifier (char '`')
                   char ']'
-                  space
-                  string "=>"
-                  space
-                  b <- expression
                   spaces
+                  string "=>"
+                  spaces
+                  b <- expression
+                  many1 space
                   e <- expression
-                  notFollowedBy (letter <|> digit)
+--                  notFollowedBy (letter <|> digit)
                   return $ Dec i as b e
 
 --
