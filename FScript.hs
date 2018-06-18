@@ -26,15 +26,26 @@ import FScript.Execution
 --
 
 main :: IO ()
-main  = do l <- getLine
-           if l==":Load" then do
-             putStrLn "Enter file to interpret: "
-             f <- getLine
-             s <- readFile f
-             putStrLn (run s)
-           else
-             putStrLn (run l)
-           main
+main  = do putStr "Fs> "
+           l <- getLine
+           case l of
+             "@L" -> prompt "Load File> " >>= readFile >>= \c -> putStrLn (run c) >> main
+             "@Q" -> return ()
+             _    -> putStrLn (run l) >> main
+
+--
+-- @Description   : Prompt the user for input, recursively
+--                  calling itself in the case of null input.
+-- @Creation Date : 18'th June 2018.
+--
+
+prompt   :: String -> IO String
+prompt s  = do putStr s
+               l <- getLine
+               if null l then
+                 prompt s
+               else
+                 return l
 
 --
 -- @Description   : Run the source source and return it's result as a String.
