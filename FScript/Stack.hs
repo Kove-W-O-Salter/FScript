@@ -12,6 +12,15 @@
 module FScript.Stack where
 
 --
+-- @Reason        : Many operations on a Stack my fail; such as calling an
+--                  identifier that is not bound, or, creating a binding
+--                  whose identifier conflicts with that of another.
+-- @Creation Date : 18'th June 2018.
+--
+
+import FScript.Environ
+
+--
 -- @Description   : An alias for the String type, whose
 --                  name should be interpreted as: an
 --                  abreviation for Identifier (What I will
@@ -34,8 +43,8 @@ data Unit a = Unit {
   identifier :: Iden,
   paramaters :: [Iden],
   definition :: a
-}
-deriving (Show,Read)
+  }
+  deriving (Show,Read)
 
 --
 -- @Description   : An meaininful alias for the Stack, which

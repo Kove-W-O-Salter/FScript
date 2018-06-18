@@ -62,3 +62,11 @@ instance Monad Environ where
   -- (>>=) :: Environ a -> (a -> Environ b) -> Environ b
   (Failure m) >>= f = Failure m
   (Success x) >>= f = f x
+
+--
+-- @Description   : Flattern a list of environments.
+-- @Creation Date : 18'th June 2018
+--
+
+unEnviron :: [Environ a] -> Environ [a]
+unEnviron  = foldr (\e es -> e >>= \e' -> es >>= \es' -> return $ e' : es') (Success [])
