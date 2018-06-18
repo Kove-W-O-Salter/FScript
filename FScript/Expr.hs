@@ -26,6 +26,7 @@ import FScript.Stack (Iden)
 --                    (2), the application of an operator;
 --                    (3), the declaration of a function;
 --                    (4), the application of a function;
+--                    (5), conditional execution;
 --                    (5), the raising of an exception.
 -- @Creation Date : 18'th June 2018.
 --
@@ -56,4 +57,5 @@ data Oper = Add
           | Gtr
           | Ltn
           | Not
+          | Cnd
           deriving (Show,Read)

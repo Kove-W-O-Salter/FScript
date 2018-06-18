@@ -58,23 +58,25 @@ applyOper o es = applyOper' o (map (\(Con n) -> n) es) >>= \n -> return $ Con n
 --
 
 applyOper' :: Oper -> [Int] -> Environ Int
-applyOper' Add [x,y] = return $ x + y
-applyOper' Add _     = Failure $ "Add, has been applied too an invalid number of arguments."
-applyOper' Sub [x,y] = return $ x - y
-applyOper' Sub _     = Failure $ "Sub, has been applied too an invalid number of arguments."
-applyOper' Mul [x,y] = return $ x * y
-applyOper' Mul _     = Failure $ "Mul, has been applied too an invalid number of arguments."
-applyOper' Div [_,0] = Failure $ "Div, has been applied too a divsor of zero."
-applyOper' Div [x,y] = return $ div x y
-applyOper' Div _     = Failure $ "Div, has been applied too an invalid number of arguments."
-applyOper' Equ [x,y] = return $ if x == y then 1 else 0
-applyOper' Equ _     = Failure $ "Equ, has been applied too an invalid number of arguments."
-applyOper' Gtr [x,y] = return $ if x >  y then 1 else 0
-applyOper' Gtr _     = Failure $ "Gtr, has been applied too an invalid number of arguments."
-applyOper' Ltn [x,y] = return $ if x <  y then 1 else 0
-applyOper' Ltn _     = Failure $ "Ltn, has been applied too an invalid number of arguments."
-applyOper' Not [x]   = return $ if x >  0 then 0 else 1
-applyOper' Not _     = Failure $ "Not, has been applied too an invalid number of arguments."
+applyOper' Add [x,y]   = return $ x + y
+applyOper' Add _       = Failure $ "Add, has been applied too an invalid number of arguments."
+applyOper' Sub [x,y]   = return $ x - y
+applyOper' Sub _       = Failure $ "Sub, has been applied too an invalid number of arguments."
+applyOper' Mul [x,y]   = return $ x * y
+applyOper' Mul _       = Failure $ "Mul, has been applied too an invalid number of arguments."
+applyOper' Div [_,0]   = Failure $ "Div, has been applied too a divsor of zero."
+applyOper' Div [x,y]   = return $ div x y
+applyOper' Div _       = Failure $ "Div, has been applied too an invalid number of arguments."
+applyOper' Equ [x,y]   = return $ if x == y then 1 else 0
+applyOper' Equ _       = Failure $ "Equ, has been applied too an invalid number of arguments."
+applyOper' Gtr [x,y]   = return $ if x >  y then 1 else 0
+applyOper' Gtr _       = Failure $ "Gtr, has been applied too an invalid number of arguments."
+applyOper' Ltn [x,y]   = return $ if x <  y then 1 else 0
+applyOper' Ltn _       = Failure $ "Ltn, has been applied too an invalid number of arguments."
+applyOper' Not [x]     = return $ if x >  0 then 0 else 1
+applyOper' Not _       = Failure $ "Not, has been applied too an invalid number of arguments."
+applyOper' Cnd [c,t,f] = return $ if c > 0 then t else f
+applyOper' Cnd _       = Failure $ "Cnd, has been applied too an invalid number of arguments."
 
 --
 -- @Description   : Apply an identifier to a list of - reduced - expressions.
